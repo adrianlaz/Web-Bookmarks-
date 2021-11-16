@@ -1,0 +1,37 @@
+# curl commands from postman
+# create user
+curl --location --request POST 'http://127.0.0.1:8000/create-user/' \
+--form 'username="user"' \
+--form 'password="Password123"'
+
+# create bookmark
+curl --location --request POST 'http://127.0.0.1:8000/my-bookmarks/' \
+--header 'Authorization: Basic dXNlcjpQYXNzd29yZDEyMw==' \
+--form 'title="new url"' \
+--form 'url="www.url.com"' \
+--form 'public="true"'
+
+# create private bookmark
+
+curl --location --request POST 'http://127.0.0.1:8000/my-bookmarks/' \
+--header 'Authorization: Basic dXNlcjpQYXNzd29yZDEyMw==' \
+--form 'title="new url"' \
+--form 'url="www.url.com"' \
+--form 'public="false"'
+
+# unautheticated user checks public bookmars
+
+curl --location --request GET 'http://127.0.0.1:8000/public-bookmarks/'
+
+# create user 2
+curl --location --request POST 'http://127.0.0.1:8000/create-user/' \
+--form 'username="user2"' \
+--form 'password="Password123"'
+
+# check bookmarks with new user (should return empty list)
+
+curl --location --request GET 'http://127.0.0.1:8000/my-bookmarks/' \
+--header 'Authorization: Basic dXNlcjI6UGFzc3dvcmQxMjM=' \
+--form 'title="new url"' \
+--form 'url="www.url.com"' \
+--form 'public="false"'

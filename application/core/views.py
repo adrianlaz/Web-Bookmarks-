@@ -25,5 +25,5 @@ class MyBookmarkViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Bookmark.objects.all().filter(owner=self.request.user)
+        return Bookmark.objects.filter(owner=self.request.user)
 
