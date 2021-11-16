@@ -15,11 +15,10 @@ class CreateUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password']
 
-        def save(self, validated_data):
-
-            user = User.objects.create_user(validated_data['username'], None, validated_data['password'])
-
-            return user
+    def save(self,  **kwargs):
+        validated_data = self.validated_data
+        user = User.objects.create_user(validated_data['username'], None, validated_data['password'])
+        return user
 
 
 class PublicBookmarkSerializer(serializers.ModelSerializer):
