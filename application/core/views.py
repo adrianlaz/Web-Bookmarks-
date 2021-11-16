@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions, mixins
 
 from core.models import Bookmark
-from core.permissions import IsOwner
 from core.serializers import CreateUserSerializer, PublicBookmarkSerializer, MyBookmarkSerializer
 
 
@@ -23,7 +22,7 @@ class PublicBookmarkViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class MyBookmarkViewSet(viewsets.ModelViewSet):
     queryset = Bookmark.objects.all()
     serializer_class = MyBookmarkSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Bookmark.objects.all().filter(owner=self.request.user)
